@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run test
+      - run: npm run build
+
+  guardrails:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Título do PR começa com a chave do Jira
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          if ! echo "$TITLE" | grep -qE '^[A-Z][A-Z0-9]+-[0-9]+ - '; then
+            echo "::error::Título precisa seguir 'CHAVE-123 - Descrição'. Recebido: $TITLE"
+            exit 1
+          fi
+      - name: Arquivos protegidos só mudam com a label allow-protected
+        env:
+          BASE: ${{ github.base_ref }}
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+        run: |
+          touched=$(git diff --name-only "origin/$BASE...HEAD" | grep -E '^(\.github/|AGENTS\.md$|CLAUDE\.md$|docs/|package(-lock)?\.json$)' || true)
+          if [ -n "$touched" ] && ! echo ",$LABELS," | grep -q ',allow-protected,'; then
+            echo "::error::PR mexe em arquivo protegido sem a label allow-protected:"
+            echo "$touched"
+            exit 1
+          fi
