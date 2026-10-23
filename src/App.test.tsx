@@ -18,3 +18,9 @@ test('mostra o título "Devin POC funcionando"', () => {
 
   expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Devin POC funcionando')
 })
+
+test('mostra o subtítulo "Claude POC funcionando"', () => {
+  render(<App />)
+
+  expect(screen.getByText('Claude POC funcionando').tagName).toBe('P')
+})
