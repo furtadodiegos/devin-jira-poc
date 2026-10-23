@@ -1,0 +1,53 @@
+name: Claude
+
+on:
+  issues:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: claude-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  claude:
+    if: >-
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude')) ||
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+      id-token: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - id: claude
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          base_branch: preview
+          branch_prefix: claude/
+          claude_args: |
+            --max-turns 30
+            --allowedTools "Bash(npm:*)"
+      # O Action só sobe a branch e deixa um link "Create PR"; o PR real sai daqui.
+      # PR_TOKEN é um PAT (pull requests: write), não o GITHUB_TOKEN padrão: PR aberto
+      # com o GITHUB_TOKEN não dispara o CI, e o token do app já expirou neste passo (401).
+      - name: Abrir PR para a preview
+        if: github.event_name == 'issues' && steps.claude.outputs.branch_name != ''
+        env:
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
+          BRANCH: ${{ steps.claude.outputs.branch_name }}
+          TITLE: ${{ github.event.issue.title }}
+          ISSUE: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh pr create --repo "$GITHUB_REPOSITORY" --base preview --head "$BRANCH" \
+            --title "$TITLE" \
+            --body "$(printf 'Implementado pelo Claude Code Action a partir da issue #%s.\n\nCloses #%s\n%s' "$ISSUE" "$ISSUE" "$ISSUE_URL")"

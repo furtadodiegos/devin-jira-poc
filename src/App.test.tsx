@@ -16,5 +16,5 @@ test('incrementa o contador a cada clique', () => {
 test('mostra o título "teste do Luan"', () => {
   render(<App />)
 
-  expect(screen.getByRole('heading', { level: 1, name: 'teste do Luan' })).toBeTruthy()
+  expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('teste do Luan')
 })
