@@ -9,6 +9,19 @@ Um harness só, versionado no repo, usado pelo dev (Claude Code) e pelo Devin.
 - Hooks: no Claude Code travam; no Devin cloud são "best effort". Trava de verdade fica no CI. [doc](https://docs.devin.ai/product-guides/plugins.md)
 - Pronto quando: a mesma skill dispara no Claude Code e numa sessão do Devin, e as regras não se repetem entre `CLAUDE.md` e `AGENTS.md`.
 
+## Montar o harness do Devin (fases por ticket)
+
+Fases: entender o ticket → ler o código envolvido (banco, backend, front, mobile) → classificar bug, feature ou estudo → bug: reproduzir antes de corrigir → plano → código com teste → `npm run check` → PR. Não é bug ou está ambíguo: comenta no ticket e para.
+
+1. Skill `.agents/skills/triagem/SKILL.md` com as fases. [doc](https://docs.devin.ai/product-guides/skills)
+2. Automation com gatilho Jira (projeto + label) e `@skills:triagem` no prompt. Sem isso o Devin decide se usa a skill. [doc](https://docs.devin.ai/product-guides/automations)
+3. Desligar o gatilho da label `devin` nativa, pra não abrir duas sessões (dedução, não está na doc).
+4. Ambiente que sobe banco, migração e servidor; credencial de teste em Secrets. Roda Chrome, emulador Android e iOS Simulator; aparelho físico, não. [Android](https://docs.devin.ai/onboard-devin/environment/android-emulation) · [iOS](https://docs.devin.ai/onboard-devin/environment/macos-support)
+5. Na skill: "comente o plano no ticket e espere aprovação". Responder no Jira mencionando o `devin-bot`. [doc](https://docs.devin.ai/integrations/jira)
+
+- Limite: as fases são instrução, não trava. O Devin só espera aprovação quando está inseguro. [blog](https://cognition.com/blog/devin-2-1) O que trava é CI e proteção de branch.
+- Pronto quando: um ticket de bug e um de estudo passam pela Automation, e o de estudo termina em comentário sem PR.
+
 ## Configurar o painel do Devin (Settings)
 
 Plano pessoal. Nome exato de campo marcado quando não confirmado na doc.
