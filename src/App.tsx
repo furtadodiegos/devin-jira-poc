@@ -5,7 +5,7 @@ function App() {
 
   return (
     <main>
-      <h1>Devin POC</h1>
+      <h1>Devin POC funcionando</h1>
       <p>Cada ticket do Jira resolvido pelo Devin aparece aqui.</p>
       <button type="button" onClick={() => setCount((value) => value + 1)}>
         Cliques: {count}
