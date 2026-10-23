@@ -19,7 +19,8 @@ O CI bloqueia o PR que tocar nesses arquivos sem a label `allow-protected`.
 
 ## Como entregar
 
-1. Branch: `devin/<CHAVE>-<resumo-curto>` (ex.: `devin/POC-3-botao-reset`).
+1. Branch: `devin/<CHAVE>-<resumo-curto>` (ex.: `devin/POC-3-botao-reset`), criada a partir da `preview`.
+   O PR vai sempre para a `preview`. Nunca abra PR para a `main`: `preview` → `main` é feito por humano.
 2. Toda mudança de comportamento vem com teste em `src/*.test.tsx`.
 3. Antes de abrir o PR, rode `npm run check` (lint, typecheck, teste e build). Só abra PR com tudo verde.
 4. Título do PR: `<CHAVE> - <descrição em português>` (ex.: `POC-3 - Botão de resetar contador`).
