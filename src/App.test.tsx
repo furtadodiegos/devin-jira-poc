@@ -19,6 +19,19 @@ test('mostra o título "Devin POC funcionando"', () => {
   expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Devin POC funcionando')
 })
 
+test('botão "Zerar" volta o contador para 0', () => {
+  render(<App />)
+  const counter = screen.getByRole('button', { name: 'Cliques: 0' })
+
+  fireEvent.click(counter)
+  fireEvent.click(counter)
+  expect(counter.textContent).toBe('Cliques: 2')
+
+  fireEvent.click(screen.getByRole('button', { name: 'Zerar' }))
+
+  expect(counter.textContent).toBe('Cliques: 0')
+})
+
 test('mostra o subtítulo "Claude POC funcionando"', () => {
   render(<App />)
 
