@@ -1,5 +1,14 @@
 # Backlog
 
+## Próximos passos da POC (23/10/2026)
+
+1. Revisar e fazer merge do PR #3 na `preview`; levar `preview` → `main` à mão.
+2. Rodar os 4 cenários que faltam do [roteiro](04-roteiro-de-teste.md) (Zerar com teste, ticket ambíguo, lodash, ajuste por comentário) e preencher a tabela: tempo, custo, resultado.
+3. Medir o custo do acompanhamento automático do PR (Devin corrige CI e responde comentário sozinho) ou desligar antes, pelo checklist "Configurar o painel do Devin" abaixo.
+4. Postar o resultado no SPDBR-5963 e voltar lá com os 4 cenários.
+5. Se passar: pedir à Decathlon conta do Devin com limite de gasto e conta de serviço no Jira (admin da Atlassian).
+6. Investigar alternativas ao Devin: OpenClaw, evoluir a esteira própria (board + Codex) ou fluxo por issues do GitHub rodando sozinho.
+
 ## Criar o harness do Claude no projeto
 
 Um harness só, versionado no repo, usado pelo dev (Claude Code) e pelo Devin.
