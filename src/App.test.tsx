@@ -31,3 +31,9 @@ test('botão "Zerar" volta o contador para 0', () => {
 
   expect(counter.textContent).toBe('Cliques: 0')
 })
+
+test('mostra o subtítulo "Claude POC funcionando"', () => {
+  render(<App />)
+
+  expect(screen.getByText('Claude POC funcionando').tagName).toBe('P')
+})
