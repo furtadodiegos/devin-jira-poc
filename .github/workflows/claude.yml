@@ -27,11 +27,26 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 1
-      - uses: anthropics/claude-code-action@v1
+      - id: claude
+        uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           base_branch: preview
           branch_prefix: claude/
           claude_args: |
             --max-turns 30
-            --allowedTools "Bash(npm:*),Bash(gh pr create:*)"
+            --allowedTools "Bash(npm:*)"
+      # O Action só sobe a branch e deixa um link "Create PR"; o PR real sai daqui,
+      # com o token do app Claude pra que o CI dispare (o GITHUB_TOKEN padrão não dispara).
+      - name: Abrir PR para a preview
+        if: github.event_name == 'issues' && steps.claude.outputs.branch_name != ''
+        env:
+          GH_TOKEN: ${{ steps.claude.outputs.github_token }}
+          BRANCH: ${{ steps.claude.outputs.branch_name }}
+          TITLE: ${{ github.event.issue.title }}
+          ISSUE: ${{ github.event.issue.number }}
+          ISSUE_URL: ${{ github.event.issue.html_url }}
+        run: |
+          gh pr create --repo "$GITHUB_REPOSITORY" --base preview --head "$BRANCH" \
+            --title "$TITLE" \
+            --body "$(printf 'Implementado pelo Claude Code Action a partir da issue #%s.\n\nCloses #%s\n%s' "$ISSUE" "$ISSUE" "$ISSUE_URL")"
