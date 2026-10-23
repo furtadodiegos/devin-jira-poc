@@ -1,5 +1,14 @@
 # Backlog
 
+## Criar o harness do Claude no projeto
+
+Um harness só, versionado no repo, usado pelo dev (Claude Code) e pelo Devin.
+
+- `CLAUDE.md` e `AGENTS.md`: o Devin já lê os dois sozinho. [doc](https://docs.devin.ai/onboard-devin/knowledge-onboarding.md)
+- Skills em `.claude/skills/<nome>/SKILL.md`: o Devin também lê essa pasta. [doc](https://docs.devin.ai/product-guides/skills.md)
+- Hooks: no Claude Code travam; no Devin cloud são "best effort". Trava de verdade fica no CI. [doc](https://docs.devin.ai/product-guides/plugins.md)
+- Pronto quando: a mesma skill dispara no Claude Code e numa sessão do Devin, e as regras não se repetem entre `CLAUDE.md` e `AGENTS.md`.
+
 ## Estudar: otimizar o Devin (playbooks, harness, modelos)
 
 Levantado em 22/10/2026, só na doc oficial. Item sem fonte confirmada está marcado.
