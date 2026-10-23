@@ -9,6 +9,32 @@ Um harness só, versionado no repo, usado pelo dev (Claude Code) e pelo Devin.
 - Hooks: no Claude Code travam; no Devin cloud são "best effort". Trava de verdade fica no CI. [doc](https://docs.devin.ai/product-guides/plugins.md)
 - Pronto quando: a mesma skill dispara no Claude Code e numa sessão do Devin, e as regras não se repetem entre `CLAUDE.md` e `AGENTS.md`.
 
+## Configurar o painel do Devin (Settings)
+
+Plano pessoal. Nome exato de campo marcado quando não confirmado na doc.
+
+1. Usage & Limits → teto por sessão (ex.: US$2–3), pra sessão travada não comer o crédito todo (nome do campo não confirmado). [doc](https://docs.devin.ai/admin/billing/self-serve.md)
+2. Usage & Limits → auto-reload desligado. Sem crédito, tudo para; ligado, cobra o cartão sozinho. [doc](https://docs.devin.ai/admin/billing/self-serve.md)
+3. Teto da org não existe no plano pessoal (só Enterprise). O teto real é o saldo + item 1. [doc](https://docs.devin.ai/admin/billing/enterprise.md)
+4. Label `devin` nativa não tem teto por sessão. Pra ter: Automation com ACU limit, fila ligada e 1 execução por vez. [doc](https://docs.devin.ai/product-guides/automations.md)
+5. Review → Repositories: não inscrever o repo, ou só "On PR creation". Auto-review a cada push gasta de novo. [doc](https://docs.devin.ai/work-with-devin/devin-review.md)
+6. Review → limite por PR (ex.: US$1). Vazio = sem limite. [doc](https://docs.devin.ai/work-with-devin/devin-review.md)
+7. Review → Auto-fix desligado: ligado, a sessão acorda e gasta pra corrigir o que o Review apontou. [doc](https://docs.devin.ai/work-with-devin/devin-review.md)
+8. Devin → Pull requests → Responding to bots: manter "No bots", senão entra em loop com o CI. [doc](https://docs.devin.ai/product-guides/bot-comment-settings.md)
+9. Preferences → Devin Review → Review trigger: "Manual". Vale pra qualquer PR seu e anula o item 5 se estiver em auto. [doc](https://docs.devin.ai/work-with-devin/devin-review.md)
+10. Notifications: ligar "terminou" e "precisa de você", com push no celular (nome dos switches não confirmado). [doc](https://docs.devin.ai/release-notes/2026.md)
+11. Devin → Pull requests → Open PRs as: "Devin". [doc](https://docs.devin.ai/integrations/gh.md)
+12. Environment → Snapshots: nada a ligar. Refaz sozinho ao salvar e a cada ~24h; secret novo exige rebuild. [doc](https://docs.devin.ai/onboard-devin/environment/blueprints.md)
+13. Sessão ociosa dorme em 30 min (5 em Lite); não dá pra mudar no plano pessoal. Cancelar o ticket no Jira põe a sessão pra dormir. [doc](https://docs.devin.ai/admin/billing/usage.md)
+14. Custo por sessão: menu ⋯ da sessão → Session insights. Gasto do mês em Usage & Limits. [doc](https://docs.devin.ai/product-guides/session-insights.md)
+
+## Avaliar: Obsidian online via MCP para o Devin
+
+Só se o conhecimento for de vários repos (ex.: regras da Decathlon inteira). Do projeto, fica no repo.
+
+- Confirmar antes: MCP funciona em sessão aberta pelo Jira?
+- Risco: nota pessoal exposta a terceiro, e texto da nota vira instrução pro Devin sem revisão.
+
 ## Estudar: otimizar o Devin (playbooks, harness, modelos)
 
 Levantado em 22/10/2026, só na doc oficial. Item sem fonte confirmada está marcado.
