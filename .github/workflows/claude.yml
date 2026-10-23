@@ -36,12 +36,13 @@ jobs:
           claude_args: |
             --max-turns 30
             --allowedTools "Bash(npm:*)"
-      # O Action só sobe a branch e deixa um link "Create PR"; o PR real sai daqui,
-      # com o token do app Claude pra que o CI dispare (o GITHUB_TOKEN padrão não dispara).
+      # O Action só sobe a branch e deixa um link "Create PR"; o PR real sai daqui.
+      # PR_TOKEN é um PAT (pull requests: write), não o GITHUB_TOKEN padrão: PR aberto
+      # com o GITHUB_TOKEN não dispara o CI, e o token do app já expirou neste passo (401).
       - name: Abrir PR para a preview
         if: github.event_name == 'issues' && steps.claude.outputs.branch_name != ''
         env:
-          GH_TOKEN: ${{ steps.claude.outputs.github_token }}
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
           BRANCH: ${{ steps.claude.outputs.branch_name }}
           TITLE: ${{ github.event.issue.title }}
           ISSUE: ${{ github.event.issue.number }}
