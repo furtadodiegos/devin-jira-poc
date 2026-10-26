@@ -18,10 +18,10 @@ test('incrementa o contador a cada clique', () => {
   expect(button.textContent).toBe('Cliques: 1')
 })
 
-test('mostra o título "Devin POC funcionando"', () => {
+test('mostra o título "teste do Luan"', () => {
   render(<App />)
 
-  expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Devin POC funcionando')
+  expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('teste do Luan')
 })
 
 test('mostra o subtítulo "Claude POC funcionando"', () => {

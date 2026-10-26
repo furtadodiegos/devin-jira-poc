@@ -35,7 +35,7 @@ function App() {
       >
         <span aria-hidden="true">{nextTheme === 'dark' ? '🌙' : '☀️'}</span>
       </button>
-      <h1>Devin POC funcionando</h1>
+      <h1>teste do Luan</h1>
       <p>Claude POC funcionando</p>
       <button type="button" onClick={() => setCount((value) => value + 1)}>
         Cliques: {count}
