@@ -37,6 +37,19 @@ test('mostra a logo do Devin entre o título e o contador', () => {
   expect(logo.compareDocumentPosition(button) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
 })
 
+test('botão "Zerar" volta o contador para 0', () => {
+  render(<App />)
+  const counter = screen.getByRole('button', { name: 'Cliques: 0' })
+
+  fireEvent.click(counter)
+  fireEvent.click(counter)
+  expect(counter.textContent).toBe('Cliques: 2')
+
+  fireEvent.click(screen.getByRole('button', { name: 'Zerar' }))
+
+  expect(counter.textContent).toBe('Cliques: 0')
+})
+
 test('mostra o subtítulo "Claude POC funcionando"', () => {
   render(<App />)
 
