@@ -13,3 +13,21 @@ body {
 main {
   text-align: center;
 }
+
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.5rem;
+  cursor: pointer;
+}
