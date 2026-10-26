@@ -1,6 +1,11 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
-import { afterEach, expect, test } from 'vitest'
+import { afterEach, beforeEach, expect, test } from 'vitest'
 import App from './App'
+
+beforeEach(() => {
+  localStorage.clear()
+  delete document.documentElement.dataset.theme
+})
 
 afterEach(cleanup)
 
@@ -36,4 +41,31 @@ test('mostra o subtítulo "Claude POC funcionando"', () => {
   render(<App />)
 
   expect(screen.getByText('Claude POC funcionando').tagName).toBe('P')
+})
+
+test('alterna o tema ao clicar no botão e salva a escolha', () => {
+  render(<App />)
+  const toggle = screen.getByRole('button', { name: 'Mudar para tema escuro' })
+  expect(document.documentElement.dataset.theme).toBe('light')
+
+  fireEvent.click(toggle)
+
+  expect(document.documentElement.dataset.theme).toBe('dark')
+  expect(localStorage.getItem('theme')).toBe('dark')
+  expect(toggle.getAttribute('aria-label')).toBe('Mudar para tema claro')
+
+  fireEvent.click(toggle)
+
+  expect(document.documentElement.dataset.theme).toBe('light')
+  expect(localStorage.getItem('theme')).toBe('light')
+  expect(toggle.getAttribute('aria-label')).toBe('Mudar para tema escuro')
+})
+
+test('aplica o tema salvo ao carregar', () => {
+  localStorage.setItem('theme', 'dark')
+
+  render(<App />)
+
+  expect(document.documentElement.dataset.theme).toBe('dark')
+  expect(screen.getByRole('button', { name: 'Mudar para tema claro' })).toBeTruthy()
 })
