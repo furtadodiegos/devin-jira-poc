@@ -37,12 +37,18 @@ jobs:
             --max-turns 30
             --allowedTools "Bash(npm:*)"
       # O Action só sobe a branch e deixa um link "Create PR"; o PR real sai daqui.
-      # PR_TOKEN é um PAT (pull requests: write), não o GITHUB_TOKEN padrão: PR aberto
-      # com o GITHUB_TOKEN não dispara o CI, e o token do app já expirou neste passo (401).
+      # Token do app izi-claude-pr, não o GITHUB_TOKEN nem um PAT: com o GITHUB_TOKEN o PR
+      # não dispara o CI, e com o PAT o PR é do Diego e ele não pode aprovar o próprio PR.
+      - id: app-token
+        if: github.event_name == 'issues' && steps.claude.outputs.branch_name != ''
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.CLAUDE_APP_ID }}
+          private-key: ${{ secrets.CLAUDE_APP_PRIVATE_KEY }}
       - name: Abrir PR para a preview
         if: github.event_name == 'issues' && steps.claude.outputs.branch_name != ''
         env:
-          GH_TOKEN: ${{ secrets.PR_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
           BRANCH: ${{ steps.claude.outputs.branch_name }}
           TITLE: ${{ github.event.issue.title }}
           ISSUE: ${{ github.event.issue.number }}
