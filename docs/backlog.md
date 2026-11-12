@@ -5,9 +5,9 @@
 1. Revisar e fazer merge do PR #3 na `preview`; levar `preview` → `main` à mão.
 2. Rodar os 4 cenários que faltam do [roteiro](04-roteiro-de-teste.md) (Zerar com teste, ticket ambíguo, lodash, ajuste por comentário) e preencher a tabela: tempo, custo, resultado.
 3. Medir o custo do acompanhamento automático do PR (Devin corrige CI e responde comentário sozinho) ou desligar antes, pelo checklist "Configurar o painel do Devin" abaixo.
-4. Postar o resultado no SPDBR-5963 e voltar lá com os 4 cenários.
-5. Se passar: pedir à Decathlon conta do Devin com limite de gasto e conta de serviço no Jira (admin da Atlassian).
-6. Investigar alternativas ao Devin: OpenClaw, evoluir a esteira própria (board + Codex) ou fluxo por issues do GitHub rodando sozinho.
+4. Registrar o resultado dos 4 cenários.
+5. Se passar: levar pro time real, com conta do Devin com limite de gasto e conta de serviço no Jira (admin da Atlassian).
+6. ~~Investigar alternativas ao Devin: OpenClaw, evoluir a esteira própria (board + Codex) ou fluxo por issues do GitHub rodando sozinho.~~ Feito em 23/10/2026: Claude via issue do GitHub funciona ponta a ponta (1 min 31 s, US$0,20); resultado na seção "Claude via issue" do [roteiro](04-roteiro-de-teste.md). OpenClaw e esteira própria ficam.
 
 ## Criar o harness do Claude no projeto
 
@@ -52,7 +52,7 @@ Plano pessoal. Nome exato de campo marcado quando não confirmado na doc.
 
 ## Avaliar: Obsidian online via MCP para o Devin
 
-Só se o conhecimento for de vários repos (ex.: regras da Decathlon inteira). Do projeto, fica no repo.
+Só se o conhecimento for de vários repos (ex.: regras de uma empresa inteira). Do projeto, fica no repo.
 
 - Confirmar antes: MCP funciona em sessão aberta pelo Jira?
 - Risco: nota pessoal exposta a terceiro, e texto da nota vira instrução pro Devin sem revisão.

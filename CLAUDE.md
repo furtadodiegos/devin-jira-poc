@@ -3,7 +3,7 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 POC: o Devin pega ticket do Jira, abre PR aqui, e o GitHub Actions + revisão humana garantem o fluxo.
-Nasceu do ticket SPDBR-5963 (Decathlon, squad Totem). Aqui usamos contas pessoais do Diego.
+Nasceu de uma necessidade real de um time. Aqui usamos contas pessoais do Diego.
 
 Leia antes de continuar: `README.md` e `docs/` na ordem numerada. Regras de agente: `AGENTS.md`.
 Estado atual e próximo passo: `docs/04-roteiro-de-teste.md`, seção "Status".

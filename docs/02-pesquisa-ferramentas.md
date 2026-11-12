@@ -1,4 +1,4 @@
-# Pesquisa das ferramentas (SPDBR-5963)
+# Pesquisa das ferramentas
 
 Apurado em 22/10/2026. Cada item foi conferido na fonte. O ticket pedia olhar Google primeiro.
 
@@ -45,5 +45,5 @@ o que deixa testar com Jira Free.
 ## Em aberto
 
 - Plano Free do Devin inclui a integração Jira? Só criando a conta.
-- Rovo no Jira da Decathlon: admin do Jira confirma.
-- Contrato Google Cloud / Gemini Enterprise da Decathlon: TI confirma.
+- Rovo no Jira do time: admin do Jira confirma.
+- Contrato Google Cloud / Gemini Enterprise: TI confirma.
