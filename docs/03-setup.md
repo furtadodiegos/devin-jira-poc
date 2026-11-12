@@ -52,3 +52,17 @@ Usar a opção **conta de serviço** (não precisa de Rovo). Doc: <https://docs.
 ## 6. Teste de fumaça
 
 Ticket `POC-1` do [roteiro](04-roteiro-de-teste.md). Se virar PR com CI verde, o setup está pronto.
+
+## 7. Jira ↔ GitHub (Diego)
+
+Faz o card andar sozinho: etiqueta → Em andamento, PR aberto → Em análise, PR mergeado → Concluído.
+
+1. Instalar o app **GitHub for Atlassian** (Atlassian, grátis) no Jira e conectar a conta `furtadodiegos` só com o repo `devin-jira-poc`.
+   Conta pessoal dentro de organização com SSO: instalar pelo GitHub em <https://github.com/apps/atlassian/installations/new> e, no popup de SSO, só "Continue".
+2. Três regras na Automação do projeto `POC`:
+   - `claude → issue no GitHub` (a que já existia): etiqueta contém `devin|claude` → se o status é Tarefas pendentes, mudar pra Em andamento → se contém `claude`, criar a issue no GitHub.
+   - `PR → Em análise`: Solicitação pull criada → mudar pra Em análise.
+   - `PR → Concluído`: Solicitação pull mesclada → mudar pra Concluído.
+3. O Jira liga PR a ticket pela chave `POC-N` no título do PR. Os dois agentes já põem.
+
+Teto: o Jira Free dá 150 etapas de automação por mês no site inteiro; uma rodada com dois tickets gastou 12.
