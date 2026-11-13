@@ -87,6 +87,16 @@ O Devin lê o `AGENTS.md` sozinho antes de codar. Não precisa configurar nada.
 
 Pronto: anotar tempo, CI de primeira e ACUs na tabela do [roteiro](04-roteiro-de-teste.md).
 
+## 6. Card anda sozinho (Jira ↔ GitHub)
+
+1. **Instalar o app:** Jira → Apps → Conheça outros apps → **GitHub for Atlassian** → Get it now → Get started → GitHub Cloud → conectar `furtadodiegos` só com `devin-jira-poc`.
+   → *A tela do app mostra "furtadodiegos is now connected" e o ticket POC-8 ganha o painel Desenvolvimento com o PR.*
+   > **Se travar:** o popup do GitHub cai sempre no SSO da organização. Instalar por <https://github.com/apps/atlassian/installations/new> e, no SSO, só "Continue".
+2. **Regras:** Configurações do espaço → Automação: editar `claude → issue no GitHub` e criar `PR → Em análise` e `PR → Concluído` ([setup, seção 7](03-setup.md#7-jira--github-diego)).
+   → *As três regras aparecem Habilitadas. O gatilho "Solicitação pull criada" só existe depois do app.*
+3. **Rodar:** criar o ticket sem etiqueta, depois etiquetar.
+   → *O card vai pra Em andamento em segundos, pra Em análise quando o PR abre e pra Concluído no merge.*
+
 ## Fontes
 
 [Devin: Jira](https://docs.devin.ai/integrations/jira) ·
